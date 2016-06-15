@@ -1,0 +1,26 @@
+details {
+  padding: 1em 0;
+
+  summary {
+    cursor: pointer;
+    display: block;
+  }
+}
+
+.no-details {
+  details {
+    :not(summary) {
+      display: none;
+    }
+
+    summary:before {
+      content: '► ';
+    }
+
+    &.open {
+      summary:before {
+        content: '▼ ';
+      }
+    }
+  }
+}
