@@ -17,8 +17,7 @@
   }
 }
 
-details {
-  padding: 0.5em 0;
+details.bbcode-details {
   transition: height 500ms ease-in;
 
   summary:focus {
@@ -27,31 +26,31 @@ details {
 
   summary {
     cursor: pointer;
-    display: block;
+    display: list-item;
   }
 
   & > div {
     padding-left: 15px;
     margin-left: 4px;
-    border-left: 1px solid @control-bg;
+    border-left: 1px solid var(--control-bg-light);
   }
 
-  &[open] > div {
-    animation-name: invisiblyGrowFontSize, fadeIn;
-    animation-duration: 500ms, 200ms;
-    animation-delay: 0ms, 500ms;
+  &[open], &:open {
+    > div {
+      animation-name: invisiblyGrowFontSize, fadeIn;
+      animation-duration: 500ms, 200ms;
+      animation-delay: 0ms, 500ms;
+
+      > :last-child {
+        // Remove bottom spacing from last child to avoid extra empty space
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+    }
   }
-}
 
-.no-details {
-  details {
-    summary:before {
-      content: '► ';
-      font-size: 12px;
-    }
-
-    &.open > summary:before {
-      content: '▼ ';
-    }
+  // Add spacing when followed by a paragraph
+  &:has(+ p) {
+    margin-bottom: 1em;
   }
 }
