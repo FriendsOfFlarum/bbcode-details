@@ -18,13 +18,11 @@
 }
 
 details.bbcode-details {
-  transition: height 500ms ease-in;
-
-  summary:focus {
-    outline: none;
-  }
-
   summary {
+    &:focus {
+      outline: none;
+    }
+
     cursor: pointer;
     display: list-item;
   }
@@ -35,17 +33,32 @@ details.bbcode-details {
     border-left: 1px solid var(--control-bg-light);
   }
 
-  &[open], &:open {
-    > div {
-      animation-name: invisiblyGrowFontSize, fadeIn;
-      animation-duration: 500ms, 200ms;
-      animation-delay: 0ms, 500ms;
+  @supports (interpolate-size: allow-keywords) and selector(::details-content) {
+    &::details-content {
+      interpolate-size: allow-keywords;
+      transition: height 0.5s ease;
+      height: 0;
+      overflow: clip;
+    }
 
-      > :last-child {
-        // Remove bottom spacing from last child to avoid extra empty space
-        margin-bottom: 0;
-        padding-bottom: 0;
-      }
+    &[open]::details-content {
+      height: auto;
+    }
+  }
+
+  @supports (not (interpolate-size: allow-keywords)) or (not selector(::details-content)) {
+    &[open] > div {
+      animation-name: invisiblyGrowFontSize, fadeIn;
+      animation-duration: 300ms, 200ms;
+      animation-delay: 0ms, 300ms;
+    }
+  }
+
+  &[open] > div {
+    > :last-child {
+      // Remove bottom spacing from last child to avoid extra empty space
+      margin-bottom: 0;
+      padding-bottom: 0;
     }
   }
 
