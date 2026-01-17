@@ -28,7 +28,7 @@
         },
         {
             "name": "David Sevilla Martín",
-            "email": "david.s@redevs.org",
+            "email": "me+fof@dsevilla.dev",
             "role": "Developer"
         },
         {
@@ -54,9 +54,6 @@
                 "backgroundColor": "#e74c3c",
                 "color": "#fff"
             }
-        },
-        "flagrow": {
-            "discuss": "https://discuss.flarum.org/d/18796"
         },
         "flarum-cli": {
             "modules": {
