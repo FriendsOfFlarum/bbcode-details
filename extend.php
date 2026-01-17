@@ -19,8 +19,24 @@ return [
     (new Extend\Formatter())
         ->configure(function (Configurator $configurator) {
             $configurator->BBCodes->addCustom(
-                '[DETAILS title={TEXT1;optional}]{TEXT2}[/DETAILS]',
-                '<details><summary>{TEXT1}</summary><div>{TEXT2}</div></details>'
+                '[DETAILS title={TEXT1;optional} open={ANYTHING?} name={SIMPLETEXT?}]{TEXT2}[/DETAILS]',
+                <<<'XML'
+<details class="bbcode-details">
+    <xsl:copy-of select="@name"/>
+
+    <xsl:if test="@open">
+        <xsl:attribute name="open">open</xsl:attribute>
+    </xsl:if>
+
+    <xsl:if test="string-length(normalize-space(@title)) &gt; 0">
+        <summary>{@title}</summary>
+    </xsl:if>
+
+    <div>
+        <xsl:apply-templates/>
+    </div>
+</details>
+XML
             );
         }),
 ];
