@@ -19,7 +19,7 @@
         }
     ],
     "require": {
-        "flarum/core": "^1.2.0"
+        "flarum/core": "^2.0.0"
     },
     "authors": [
         {
@@ -65,7 +65,7 @@
         }
     },
     "require-dev": {
-        "flarum/phpstan": "*"
+        "flarum/phpstan": "^2.0.0"
     },
     "scripts": {
         "analyse:phpstan": "phpstan analyse",
@@ -73,5 +73,7 @@
     },
     "scripts-descriptions": {
         "analyse:phpstan": "Run static analysis"
-    }
+    },
+    "minimum-stability": "beta",
+    "prefer-stable": true
 }
