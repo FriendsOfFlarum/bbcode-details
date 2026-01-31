@@ -17,41 +17,53 @@
   }
 }
 
-details {
-  padding: 0.5em 0;
-  transition: height 500ms ease-in;
-
-  summary:focus {
-    outline: none;
-  }
-
+details.bbcode-details {
   summary {
+    &:focus {
+      outline: none;
+    }
+
     cursor: pointer;
-    display: block;
+    display: list-item;
   }
 
   & > div {
     padding-left: 15px;
     margin-left: 4px;
-    border-left: 1px solid @control-bg;
+    border-left: 1px solid var(--control-bg-light);
+  }
+
+  @supports (interpolate-size: allow-keywords) and selector(::details-content) {
+    &::details-content {
+      interpolate-size: allow-keywords;
+      transition: height 0.5s ease;
+      height: 0;
+      overflow: clip;
+    }
+
+    &[open]::details-content {
+      height: auto;
+    }
+  }
+
+  @supports (not (interpolate-size: allow-keywords)) or (not selector(::details-content)) {
+    &[open] > div {
+      animation-name: invisiblyGrowFontSize, fadeIn;
+      animation-duration: 300ms, 200ms;
+      animation-delay: 0ms, 300ms;
+    }
   }
 
   &[open] > div {
-    animation-name: invisiblyGrowFontSize, fadeIn;
-    animation-duration: 500ms, 200ms;
-    animation-delay: 0ms, 500ms;
+    > :last-child {
+      // Remove bottom spacing from last child to avoid extra empty space
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
   }
-}
 
-.no-details {
-  details {
-    summary:before {
-      content: '► ';
-      font-size: 12px;
-    }
-
-    &.open > summary:before {
-      content: '▼ ';
-    }
+  // Add spacing when followed by a paragraph
+  &:has(+ p) {
+    margin-bottom: 1em;
   }
 }
